@@ -48,10 +48,16 @@ struct ModelSettings {
   std::string modelFolderCppAd = "/tmp/ocs2";
 
   // This is only used to get names for the knees and to check urdf for extra joints that need to be fixed.
-  std::vector<std::string> jointNames{"LF_HAA", "LF_HFE", "LF_KFE", "RF_HAA", "RF_HFE", "RF_KFE",
-                                      "LH_HAA", "LH_HFE", "LH_KFE", "RH_HAA", "RH_HFE", "RH_KFE"};
+  // std::vector<std::string> jointNames{"LF_HAA", "LF_HFE", "LF_KFE", "RF_HAA", "RF_HFE", "RF_KFE",
+  //                                     "LH_HAA", "LH_HFE", "LH_KFE", "RH_HAA", "RH_HFE", "RH_KFE"};
+  // std::vector<std::string> contactNames6DoF{};
+  // std::vector<std::string> contactNames3DoF{"LF_FOOT", "RF_FOOT", "LH_FOOT", "RH_FOOT"};
+
+  std::vector<std::string> jointNames{"l_hip_yaw_joint", "l_hip_roll_joint", "l_hip_pitch_joint", "l_knee_pitch_joint", "l_ankle_pitch_joint", "l_ankle_roll_joint",
+                                      "r_hip_yaw_joint", "r_hip_roll_joint", "r_hip_pitch_joint", "r_knee_pitch_joint", "r_ankle_pitch_joint", "r_ankle_roll_joint"};
   std::vector<std::string> contactNames6DoF{};
-  std::vector<std::string> contactNames3DoF{"LF_FOOT", "RF_FOOT", "LH_FOOT", "RH_FOOT"};
+  std::vector<std::string> contactNames3DoF{"l1_foot_ft_link", "l2_foot_ft_link", "r1_foot_ft_link", "r2_foot_ft_link",
+                                            "l3_foot_ft_link", "l4_foot_ft_link", "r3_foot_ft_link", "r4_foot_ft_link"};
 };
 
 ModelSettings loadModelSettings(const std::string& filename, const std::string& fieldName = "model_settings", bool verbose = "true");

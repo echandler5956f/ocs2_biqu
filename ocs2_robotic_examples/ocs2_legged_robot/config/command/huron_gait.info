@@ -2,6 +2,9 @@ list
 {
   [0] stance
   [1] trot
+  [2] dynamic_walk1
+  [3] dynamic_walk2
+  [4] dynamic_walk3
 }
 
 stance
@@ -21,13 +24,86 @@ trot
  {
    modeSequence
    {
-     [0]     LF
-     [1]     RF
+     [0]     LF_LH
+     [1]     RF_RH
    }
    switchingTimes
    {
      [0]     0.0
      [1]     0.35
      [2]     0.70
+   }
+}
+
+dynamic_walk1
+ {
+   modeSequence
+   {
+     [0]     LF_LH
+     [1]     LF
+     [2]     LF_RH
+     [3]     LF_RF_RH
+     [4]     RF_RH
+     [5]     RF
+     [6]     RF_LH
+     [7]     LF_RF_LH
+   }
+   switchingTimes
+   {
+     [0]     0.00
+     [1]     0.07
+     [2]     0.15
+     [3]     0.22
+     [4]     0.41
+     [5]     0.50
+     [6]     0.60
+     [7]     0.78
+     [8]     0.85
+   }
+}
+
+dynamic_walk2
+ {
+   modeSequence
+   {
+     [0]     RF_RH
+     [1]     RF   
+     [2]     RF_LH
+     [3]     LF_LH
+     [4]     LF   
+     [5]     LF_RH
+   }
+   switchingTimes
+   {
+     [0]     0.00
+     [1]     0.10
+     [2]     0.30
+     [3]     0.50
+     [4]     0.60
+     [5]     0.73
+     [6]     0.87
+   }
+}
+
+dynamic_walk3
+ {
+   modeSequence
+   {
+     [0]     RF_RH
+     [1]     RF   
+     [2]     RF_LH
+     [3]     LF_LH
+     [4]     LF   
+     [5]     LF_RH
+   }
+   switchingTimes
+   {
+     [0]     0.00
+     [1]     0.20
+     [2]     0.60
+     [3]     1.00
+     [4]     1.20
+     [5]     1.60
+     [6]     2.00
    }
 }

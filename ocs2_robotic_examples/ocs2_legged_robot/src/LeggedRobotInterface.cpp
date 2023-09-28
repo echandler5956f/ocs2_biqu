@@ -123,8 +123,10 @@ void LeggedRobotInterface::setupOptimalConrolProblem(const std::string& taskFile
       modelSettings_.contactNames6DoF);
 
   // Swing trajectory planner
+  // auto swingTrajectoryPlanner =
+  //     std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 4);
   auto swingTrajectoryPlanner =
-      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 4);
+      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 8);
 
   // Mode schedule manager
   referenceManagerPtr_ =

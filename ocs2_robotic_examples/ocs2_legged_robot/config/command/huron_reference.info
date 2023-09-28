@@ -1,22 +1,22 @@
-targetDisplacementVelocity          0.3s;
+targetDisplacementVelocity          0.3;
 targetRotationVelocity              0.2;
 
-comHeight                           1.1226
+comHeight                           1.0627
 
 defaultJointState
 {
-   (0,0)  0.00   ; LF_1
-   (1,0)  0.00   ; LF_2
-   (2,0)  0.00   ; LF_3
-   (3,0)  0.00   ; LF_4
-   (4,0)  0.00   ; LF_5
-   (5,0)  0.00   ; LF_6
-   (6,0)  0.00   ; RF_1
-   (7,0)  0.00   ; RF_2
-   (8,0)  0.00   ; RF_3
-   (9,0)  0.00   ; RF_4
-   (10,0) 0.00   ; RF_5
-   (11,0) 0.00   ; RF_6
+   (0,0)   0.0000 ; LF_1
+   (1,0)   0.0152 ; LF_2
+   (2,0)  -0.2884 ; LF_3
+   (3,0)   0.7541 ; LF_4
+   (4,0)  -0.4657 ; LF_5
+   (5,0)  -0.0152 ; LF_6
+   (6,0)   0.0000 ; RF_1
+   (7,0)  -0.0152 ; RF_2
+   (8,0)  -0.2884 ; RF_3
+   (9,0)   0.7541 ; RF_4
+   (10,0) -0.4657 ; RF_5
+   (11,0)  0.0152 ; RF_6
 }
 
 initialModeSchedule

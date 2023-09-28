@@ -9,7 +9,7 @@ legged_robot_interface
 
 model_settings
 {
-  positionErrorGain             0.0 ; 20.0
+  positionErrorGain             20.0
   phaseTransitionStanceTime     0.4
 
   verboseCppAd                  true
@@ -19,11 +19,11 @@ model_settings
 
 swing_trajectory_config
 {
-  liftOffVelocity               0.2
-  touchDownVelocity            -0.4
-  swingHeight                   0.1
+  liftOffVelocity               0.1
+  touchDownVelocity            -0.2
+  swingHeight                   0.075
   touchdownAfterHorizon         0.2
-  swingTimeScale                0.15
+  swingTimeScale                0.2
 }
 
 ; Multiple_Shooting SQP settings
@@ -132,13 +132,13 @@ rollout
 
 mpc
 {
-  timeHorizon                     1.0  ; [s]
+  timeHorizon                     2.0  ; [s]
   solutionTimeWindow              -1   ; maximum [s]
   coldStart                       false
 
   debugPrint                      false
 
-  mpcDesiredFrequency             50  ; [Hz]
+  mpcDesiredFrequency             -1  ; [Hz]
   mrtDesiredFrequency             400 ; [Hz]
 }
 
@@ -155,24 +155,24 @@ initialState
    ;; Base Pose: [position, orientation] ;;
    (6,0)  0.0     ; p_base_x
    (7,0)  0.0     ; p_base_y
-   (8,0)  1.1226  ; p_base_z
+   (8,0)  1.0627  ; p_base_z
    (9,0)  0.0     ; theta_base_z
    (10,0) 0.0     ; theta_base_y
    (11,0) 0.0     ; theta_base_x
 
    ;; Leg Joint Positions: [LF, RF] ;;
-   (12,0)  0.00  ; LF_1
-   (13,0)  0.00  ; LF_2
-   (14,0)  0.00  ; LF_3
-   (15,0)  0.00  ; LF_4
-   (16,0)  0.00  ; LF_5
-   (17,0)  0.00  ; LF_6
-   (18,0)  0.00  ; RF_1
-   (19,0)  0.00  ; RF_2
-   (20,0)  0.00  ; RF_3
-   (21,0)  0.00  ; RF_4
-   (22,0)  0.00  ; RF_5
-   (23,0)  0.00  ; RF_6
+   (12,0)   0.0000  ; LF_1
+   (13,0)   0.0152  ; LF_2
+   (14,0)  -0.2884  ; LF_3
+   (15,0)   0.7541  ; LF_4
+   (16,0)  -0.4657  ; LF_5
+   (17,0)  -0.0152  ; LF_6
+   (18,0)   0.0000  ; RF_1
+   (19,0)  -0.0152  ; RF_2
+   (20,0)  -0.2884  ; RF_3
+   (21,0)   0.7541  ; RF_4
+   (22,0)  -0.4657  ; RF_5
+   (23,0)   0.0152  ; RF_6
 }
 
 ; standard state weight matrix
@@ -216,21 +216,57 @@ R
 {
   scaling 1e-3
 
-  ;; Feet Contact Forces: [LF, RF] ;;
-  (0,0)   1.0       ; left_force
-  (1,1)   1.0       ; left_force
-  (2,2)   1.0       ; left_force
-  (3,3)   1.0       ; right_force
-  (4,4)   1.0       ; right_force
-  (5,5)   1.0       ; right_force
+  ;; Feet Contact Forces: [LF1, LF2, RF1, RF2, LF3, LF4, RF3, RF4] ;;
+  (0,0)   1.0       ; LF1
+  (1,1)   1.0       ; LF1
+  (2,2)   1.0       ; LF1
+  (3,3)   1.0       ; LF2
+  (4,4)   1.0       ; LF2
+  (5,5)   1.0       ; LF2
+  (6,6)   1.0       ; RF1
+  (7,7)   1.0       ; RF1
+  (8,8)   1.0       ; RF1
+  (9,9)   1.0       ; RF2
+  (10,10) 1.0       ; RF2
+  (11,11) 1.0       ; RF2
+  (12,12) 1.0       ; LF3
+  (13,13) 1.0       ; LF3
+  (14,14) 1.0       ; LF3
+  (15,15) 1.0       ; LF4
+  (16,16) 1.0       ; LF4
+  (17,17) 1.0       ; LF4
+  (18,18) 1.0       ; RF3
+  (19,19) 1.0       ; RF3
+  (20,20) 1.0       ; RF3
+  (21,21) 1.0       ; RF4
+  (22,22) 1.0       ; RF4
+  (23,23) 1.0       ; RF4
 
-  ;; foot velocity relative to base: [LF, RF] (uses the Jacobian at nominal configuration) ;;
-  (6,6)   5000.0    ; x
-  (7,7)   5000.0    ; y
-  (8,8)   5000.0    ; z
-  (9,9)   5000.0    ; x
-  (10,10) 5000.0    ; y
-  (11,11) 5000.0    ; z
+  ;; foot velocity relative to base: [LF1, LF2, RF1, RF2, LF3, LF4, RF3, RF4] (uses the Jacobian at nominal configuration) ;;
+  (24,24) 5000.0    ; LF1
+  (25,25) 5000.0    ; LF1
+  (26,26) 5000.0    ; LF1
+  (27,27) 5000.0    ; LF2
+  (28,28) 5000.0    ; LF2
+  (29,29) 5000.0    ; LF2
+  (30,30) 5000.0    ; RF1
+  (31,31) 5000.0    ; RF1
+  (32,32) 5000.0    ; RF1
+  (33,33) 5000.0    ; RF2
+  (34,34) 5000.0    ; RF2
+  (35,35) 5000.0    ; RF2
+  (36,36) 5000.0    ; LF3
+  (37,37) 5000.0    ; LF3
+  (38,38) 5000.0    ; LF3
+  (39,39) 5000.0    ; LF4
+  (40,40) 5000.0    ; LF4
+  (41,41) 5000.0    ; LF4
+  (42,42) 5000.0    ; RF3
+  (43,43) 5000.0    ; RF3
+  (44,44) 5000.0    ; RF3
+  (45,45) 5000.0    ; RF4
+  (46,46) 5000.0    ; RF4
+  (47,47) 5000.0    ; RF4
 }
 
 frictionConeSoftConstraint

@@ -75,10 +75,16 @@ LeggedRobotVisualizer::LeggedRobotVisualizer(PinocchioInterface pinocchioInterfa
 void LeggedRobotVisualizer::launchVisualizerNode(ros::NodeHandle& nodeHandle) {
   costDesiredBasePositionPublisher_ = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredBaseTrajectory", 1);
   costDesiredFeetPositionPublishers_.resize(centroidalModelInfo_.numThreeDofContacts);
-  costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF", 1);
-  costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF", 1);
-  costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LH", 1);
-  costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RH", 1);
+  costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF1", 1);
+  costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF2", 1);
+  costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF3", 1);
+  costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF4", 1);
+  costDesiredFeetPositionPublishers_[4] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF1", 1);
+  costDesiredFeetPositionPublishers_[5] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF2", 1);
+  costDesiredFeetPositionPublishers_[6] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF3", 1);
+  costDesiredFeetPositionPublishers_[7] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF4", 1);
+  // costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LH", 1);
+  // costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RH", 1);
   stateOptimizedPublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/optimizedStateTrajectory", 1);
   currentStatePublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/currentState", 1);
 
@@ -140,10 +146,14 @@ void LeggedRobotVisualizer::publishObservation(ros::Time timeStamp, const System
 /******************************************************************************************************/
 void LeggedRobotVisualizer::publishJointTransforms(ros::Time timeStamp, const vector_t& jointAngles) const {
   if (robotStatePublisherPtr_ != nullptr) {
-    std::map<std::string, scalar_t> jointPositions{{"LF_HAA", jointAngles[0]}, {"LF_HFE", jointAngles[1]},  {"LF_KFE", jointAngles[2]},
-                                                   {"LH_HAA", jointAngles[3]}, {"LH_HFE", jointAngles[4]},  {"LH_KFE", jointAngles[5]},
-                                                   {"RF_HAA", jointAngles[6]}, {"RF_HFE", jointAngles[7]},  {"RF_KFE", jointAngles[8]},
-                                                   {"RH_HAA", jointAngles[9]}, {"RH_HFE", jointAngles[10]}, {"RH_KFE", jointAngles[11]}};
+    // std::map<std::string, scalar_t> jointPositions{{"LF_HAA", jointAngles[0]}, {"LF_HFE", jointAngles[1]},  {"LF_KFE", jointAngles[2]},
+    //                                                {"LH_HAA", jointAngles[3]}, {"LH_HFE", jointAngles[4]},  {"LH_KFE", jointAngles[5]},
+    //                                                {"RF_HAA", jointAngles[6]}, {"RF_HFE", jointAngles[7]},  {"RF_KFE", jointAngles[8]},
+    //                                                {"RH_HAA", jointAngles[9]}, {"RH_HFE", jointAngles[10]}, {"RH_KFE", jointAngles[11]}};
+    std::map<std::string, scalar_t> jointPositions{{"l_hip_yaw_joint", jointAngles[0]}, {"l_hip_roll_joint", jointAngles[1]},  {"l_hip_pitch_joint", jointAngles[2]},
+                                                   {"l_knee_pitch_joint", jointAngles[3]}, {"l_ankle_pitch_joint", jointAngles[4]},  {"l_ankle_roll_joint", jointAngles[5]},
+                                                   {"r_hip_yaw_joint", jointAngles[6]}, {"r_hip_roll_joint", jointAngles[7]},  {"r_hip_pitch_joint", jointAngles[8]},
+                                                   {"r_knee_pitch_joint", jointAngles[9]}, {"r_ankle_pitch_joint", jointAngles[10]}, {"r_ankle_roll_joint", jointAngles[11]}};
     robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp);
   }
 }
