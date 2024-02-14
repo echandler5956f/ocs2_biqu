@@ -1,0 +1,3 @@
+[submodule "ocs2_robotic_assets_wpi"]
+	path = ocs2_robotic_assets_wpi
+	url = https://github.com/echandler5956f/ocs2_robotic_assets_wpi.git
